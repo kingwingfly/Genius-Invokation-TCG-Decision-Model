@@ -1,0 +1,60 @@
+{
+    "qqman_fire": {
+        "hp": 10,
+        "mp": 2,
+        "shield": 0,
+        "a": {
+            "damage": 2,
+            "elem": 1,
+            "demand": [
+                1,
+                2
+            ]
+        },
+        "e": {
+            "damage": 3,
+            "elem": 4,
+            "demand": [
+                3,
+                0
+            ]
+        },
+        "q": {
+            "damage": 4,
+            "elem": 4,
+            "demand": [
+                4,
+                0
+            ]
+        }
+    },
+    "qqman_wind": {
+        "hp": 10,
+        "mp": 2,
+        "shield": 0,
+        "a": {
+            "damage": 2,
+            "elem": 1,
+            "demand": [
+                1,
+                2
+            ]
+        },
+        "e": {
+            "damage": 3,
+            "elem": 7,
+            "demand": [
+                3,
+                0
+            ]
+        },
+        "q": {
+            "damage": 4,
+            "elem": 7,
+            "demand": [
+                4,
+                0
+            ]
+        }
+    }
+}
