@@ -1,32 +1,6 @@
 from __future__ import annotations
 from prelude import *
-import helper
-
-# todo Test 冻结下的反应
-MATRIX = [
-    # [冻,    无(物),   雷,     草,     火,      水,     冰]
-    [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)],  # None
-    [(1, 2), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)],  # 无(物)
-    [(0, 0), (2, 0), (2, 0), (1, 1), (1, 2), (1, 1), (1, 1)],  # 雷
-    [(0, 0), (3, 0), (1, 1), (3, 0), (1, 1), (1, 1), (6, 0)],  # 草
-    [(1, 2), (4, 0), (1, 2), (1, 1), (4, 0), (1, 2), (1, 2)],  # 火
-    [(0, 0), (5, 0), (1, 1), (1, 1), (1, 2), (5, 0), (0, 1)],  # 水
-    [(0, 0), (6, 0), (1, 1), (3, 0), (1, 2), (0, 1), (6, 0)],  # 冰
-    [(0, 0), (1, 0), (1, 0), (3, 0), (1, 0), (1, 0), (1, 0)],  # 风
-    [(0, 0), (7, 0), (1, 1), (3, 0), (1, 1), (1, 1), (1, 1)],  # 岩
-]
-
-ELEM_DICT = {
-    0: "穿",
-    1: "无",
-    2: "雷",
-    3: "草",
-    4: "火",
-    5: "水",
-    6: "冰",
-    7: "风",
-    8: "岩",
-}
+from config import CHAR_ATTRI, ER_MATRIX, ELEM_DICT
 
 
 class BasicChar:
@@ -60,7 +34,9 @@ class BasicChar:
     def injury(self, injury: int, elem: int):
         assert self.state, "attacking a dead char"
         old = self.attach
-        self.attach, addition = MATRIX[elem][self.attach] if elem else (self.attach, 0)
+        self.attach, addition = (
+            ER_MATRIX[elem][self.attach] if elem else (self.attach, 0)
+        )
         for _ in range(injury + addition):
             if self.has_shield():
                 self._shield -= 1
@@ -127,7 +103,7 @@ class BasicChar:
 
 class Char(BasicChar):
     def __init__(self, name: str) -> None:
-        super().__init__(helper.get_attri(name))
+        super().__init__(CHAR_ATTRI[name])
         self.name = name
 
     def __str__(self) -> str:
@@ -147,15 +123,6 @@ def create_chars(names: list[str]) -> list[Char]:
             lst.remove(i)
             chars[i].teammates.extend([chars[j] for j in lst])
     return chars
-
-
-def FSM_checker():
-    for i in range(7):
-        for j in range(8):
-            new, addition = MATRIX[j][i]
-            print(
-                f"get {ELEM_DICT[j]}; rom {ELEM_DICT[i]} to {ELEM_DICT[new]}; addtion {addition}"
-            )
 
 
 if __name__ == "__main__":
